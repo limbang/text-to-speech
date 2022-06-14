@@ -45,7 +45,7 @@ package top.limbang.ssml
  *
  * @param value
  */
-enum class Style (value: String){
+enum class Style (val value: String){
     General("General"),
     AdvertisementUpbeat("advertisement-upbeat"),
     Affectionate("affectionate"),

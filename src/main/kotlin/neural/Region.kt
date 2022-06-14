@@ -7,7 +7,7 @@
 
 package top.limbang.neural
 
-enum class Region(value: String) {
+enum class Region(val value: String) {
     Afrikaans_SouthAfrica("af-ZA"),
     Amharic_Ethiopia("am-ET"),
     Arabic_Algeria("ar-DZ"),
