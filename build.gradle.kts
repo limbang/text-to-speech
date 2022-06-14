@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.8")
     testImplementation(kotlin("test"))
 }
 
