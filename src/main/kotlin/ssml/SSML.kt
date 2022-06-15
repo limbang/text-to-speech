@@ -41,6 +41,8 @@ class Speak(version: String = "1.0", lang: String = Region.English_UnitedStates.
      * 把 Speak 转成 ssml 文本
      */
     override fun toString(): String {
+        writer.flush()
+        writer.close()
         return bos.toString()
     }
 

@@ -8,7 +8,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.0"
+    val version = "1.7.0"
+    kotlin("jvm") version version
+    kotlin("plugin.serialization") version version
 }
 
 group = "top.limbang"
@@ -20,8 +22,13 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.8")
+    implementation("org.slf4j:slf4j-api:1.7.36")
     testImplementation(kotlin("test"))
+    testImplementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.8")
+    testImplementation("ch.qos.logback:logback-classic:1.2.11")
 }
 
 tasks.test {
