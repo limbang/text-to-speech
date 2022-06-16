@@ -8,7 +8,6 @@
 package top.limbang.neural.zh_cn
 
 import top.limbang.neural.Gender
-import top.limbang.ssml.Role
 import top.limbang.ssml.Style
 
 /**
@@ -34,13 +33,11 @@ import top.limbang.ssml.Style
  *
  */
 class XiaoxiaoNeural : MandarinSimplifiedNeural {
-
-    override val name = "zh-cn-XiaoxiaoNeural"
+    override val name = "zh-CN-XiaoxiaoNeural"
+    override val localName = "晓晓"
     override val gender = Gender.Female
     override val styleList = listOf(
         Style.General, Style.Assistant, Style.Chat, Style.CustomerService, Style.Newscast, Style.Affectionate, Style.Angry,
         Style.Calm, Style.Cheerful, Style.Disgruntled, Style.Fearful, Style.Gentle, Style.Lyrical, Style.Sad, Style.Serious, Style.PoetryReading
     )
-    override val roleList = listOf(Role.Default)
-
 }

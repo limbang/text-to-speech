@@ -11,19 +11,19 @@ import top.limbang.neural.Gender
 import top.limbang.ssml.Style
 
 /**
- * ## 云扬
- * 针对新闻阅读进行了优化，
+ * ## 云健 (预览)
+ *
+ * 体育播报解说优化
  *
  * ### 支持以下风格
  * - 0 -> [Style.General]
- * - 1 -> [Style.CustomerService]
- * - 2 -> [Style.NarrationProfessional]
- * - 3 -> [Style.NewscastCasual]
- *
+ * - 1 -> [Style.NarrationRelaxed]
+ * - 2 -> [Style.SportsCommentary]
+ * - 3 -> [Style.SportsCommentaryExcited]
  */
-class YunyangNeural  : MandarinSimplifiedNeural{
-    override val name = "zh-CN-YunyangNeural"
-    override val localName = "云扬"
+class YunjianNeural : MandarinSimplifiedNeural {
+    override val name = "zh-CN-YunjianNeural"
+    override val localName = "云健"
     override val gender = Gender.Male
-    override val styleList = listOf(Style.General, Style.CustomerService, Style.NarrationProfessional, Style.NewscastCasual)
+    override val styleList = listOf(Style.General, Style.NarrationRelaxed,Style.SportsCommentary,Style.SportsCommentaryExcited)
 }

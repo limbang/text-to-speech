@@ -26,8 +26,8 @@ import top.limbang.ssml.Style
  * - 8 -> [Style.Depressed]
  */
 class XiaoxuanNeural : MandarinSimplifiedNeural {
-
-    override val name = "zh-cn-XiaoxuanNeural"
+    override val name = "zh-CN-XiaoxuanNeural"
+    override val localName = "晓萱"
     override val gender = Gender.Female
     override val styleList = listOf(
         Style.General, Style.Calm, Style.Fearful, Style.Cheerful, Style.Disgruntled, Style.Serious,

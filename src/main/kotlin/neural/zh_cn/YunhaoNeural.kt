@@ -11,15 +11,16 @@ import top.limbang.neural.Gender
 import top.limbang.ssml.Style
 
 /**
- * ## 晓双
- * 儿童语音，针对儿童故事和聊天进行了优化；使用 SSML 提供多种语音风格
+ * ## 云皓 (预览)
+ * 产品推销优化
  *
- * 支持以下风格
+ * ### 支持以下风格
  * - 0 -> [Style.General]
- * - 1 -> [Style.Chat]
+ * - 1 -> [Style.AdvertisementUpbeat]
  */
-class XiaoshuangNeural : MandarinSimplifiedNeural {
-    override val name = "zh-CN-XiaoshuangNeural"
-    override val localName = "晓双"
-    override val gender = Gender.Female
+class YunhaoNeural : MandarinSimplifiedNeural {
+    override val name = "zh-CN-YunhaoNeural"
+    override val localName = "云皓"
+    override val gender = Gender.Male
+    override val styleList = listOf(Style.General, Style.AdvertisementUpbeat)
 }

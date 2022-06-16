@@ -10,11 +10,10 @@ package top.limbang.neural.zh_cn
 import top.limbang.neural.Gender
 
 /**
- * ## 晓秋
- * 针对叙事进行了优化
+ * ## 云希四川
  */
-class XiaoqiuNeural : MandarinSimplifiedNeural {
-    override val name = "zh-CN-XiaoqiuNeural"
-    override val localName = "晓秋"
-    override val gender = Gender.Female
+class YunxiSiNeural: MandarinSimplifiedNeural {
+    override val name = "zh-CN-SC-YunxiNeural"
+    override val localName = "云希四川"
+    override val gender = Gender.Male
 }

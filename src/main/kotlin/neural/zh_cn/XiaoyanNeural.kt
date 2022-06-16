@@ -8,17 +8,13 @@
 package top.limbang.neural.zh_cn
 
 import top.limbang.neural.Gender
-import top.limbang.ssml.Role
-import top.limbang.ssml.Style
 
 /**
  * ## 晓颜
  * 针对客户服务进行了优化
  */
 class XiaoyanNeural : MandarinSimplifiedNeural {
-
-    override val name = "zh-cn-XiaoyanNeural"
+    override val name = "zh-CN-XiaoyanNeural"
+    override val localName = "晓颜"
     override val gender = Gender.Female
-    override val styleList = listOf(Style.General)
-    override val roleList = listOf(Role.Default)
 }

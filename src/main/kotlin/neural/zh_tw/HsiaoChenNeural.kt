@@ -5,16 +5,16 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.neural.zh_cn
+package top.limbang.neural.zh_tw
 
 import top.limbang.neural.Gender
 
 /**
- * ## 晓秋
- * 针对叙事进行了优化
+ * ## 曉臻
+ *
  */
-class XiaoqiuNeural : MandarinSimplifiedNeural {
-    override val name = "zh-CN-XiaoqiuNeural"
-    override val localName = "晓秋"
+class HsiaoChenNeural : TaiwaneseMandarin{
+    override val name = "zh-TW-HsiaoChenNeural"
+    override val localName = "曉臻"
     override val gender = Gender.Female
 }

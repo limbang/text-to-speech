@@ -19,6 +19,9 @@ interface Neural {
     /** 语音名称 */
     val name: String
 
+    /** 本地名称 */
+    val localName: String
+
     /** 性别 */
     val gender: Gender
 
@@ -27,8 +30,10 @@ interface Neural {
 
     /** 支持的风格列表 */
     val styleList: List<Style>
+        get() = listOf(Style.General)
 
     /** 支持的角色列表 */
     val roleList: List<Role>
+        get() = listOf(Role.Default)
 
 }

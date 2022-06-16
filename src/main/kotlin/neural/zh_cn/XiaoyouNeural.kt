@@ -8,17 +8,13 @@
 package top.limbang.neural.zh_cn
 
 import top.limbang.neural.Gender
-import top.limbang.ssml.Role
-import top.limbang.ssml.Style
 
 /**
  * ## 晓悠
  * 儿童语音，针对讲故事进行了优化
  */
 class XiaoyouNeural : MandarinSimplifiedNeural {
-
-    override val name = "zh-cn-XiaoyouNeural"
+    override val name = "zh-CN-XiaoyouNeural"
+    override val localName = "晓悠"
     override val gender = Gender.Female
-    override val styleList = listOf(Style.General)
-    override val roleList = listOf(Role.Default)
 }

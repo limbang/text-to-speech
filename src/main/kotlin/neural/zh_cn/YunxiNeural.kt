@@ -41,7 +41,8 @@ import top.limbang.ssml.Style
  * - 8 -> [Role.Boy]
  */
 class YunxiNeural : MandarinSimplifiedNeural{
-    override val name = "zh-cn-YunxiNeural"
+    override val name = "zh-CN-YunxiNeural"
+    override val localName = "云希"
     override val gender = Gender.Male
     override val styleList = listOf(
         Style.General, Style.NarrationRelaxed, Style.Embarrassed, Style.Fearful, Style.Cheerful, Style.Disgruntled,
