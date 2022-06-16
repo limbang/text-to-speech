@@ -32,7 +32,7 @@ class TextToSpeechTest {
         val ssml = Speak {
             voice(xiaoche.name, "你好！"){
                 prosody(0,0,it)
-                adjustSpeakingStyles (text = it){
+                adjustSpeakingStyles (){
                     prosody(text = it)
                 }
             }

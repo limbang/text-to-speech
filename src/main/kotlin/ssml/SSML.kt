@@ -76,9 +76,9 @@ fun Speak.voice(name: String, text: String = "", action: (Voice.(String) -> Unit
  * @param role 指定讲话角色扮演。 语音充当不同的年龄和性别，但语音名称不会更改。
  * @param text 要转换成语音的内容
  */
-fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double = 1.0, role: Role = Role.Default, text: String, action: (Voice.() -> Unit)? = null) {
+fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double = 1.0, role: Role = Role.Default, text: String = "", action: (Voice.() -> Unit)? = null) {
     // 如果文本为空就不处理
-    if(text.isEmpty()) return
+    if(text.isEmpty() && action == null) return
     // 如果风格和角色都是默认的那么就去掉 mstts:express-as 节点，直接输入文本
     if (style == Style.General && role == Role.Default) {
         if (text.isNotEmpty()) speak.writer.writeCharacters(text)
