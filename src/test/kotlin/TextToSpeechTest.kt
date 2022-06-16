@@ -15,10 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import top.limbang.neural.zh_cn.XiaochenNeural
-import top.limbang.ssml.Speak
-import top.limbang.ssml.adjustSpeakingStyles
-import top.limbang.ssml.prosody
-import top.limbang.ssml.voice
+import top.limbang.ssml.*
 import java.io.FileOutputStream
 import kotlin.test.Test
 
@@ -31,10 +28,13 @@ class TextToSpeechTest {
 
         val ssml = Speak {
             voice(xiaoche.name, "你好！"){
-                prosody(0,0,it)
                 adjustSpeakingStyles {
-                    prosody(text = it)
+                    prosody(rate = 150,text = it)
                 }
+                `break`()
+                adjustSpeakingStyles(text = "我是晓晓")
+                silence("Sentenceboundary","100ms")
+                prosody(text = "1+1=2")
             }
         }
 

@@ -23,5 +23,10 @@ fun XMLStreamWriter.element(name: String, init: XMLStreamWriter.() -> Unit): XML
     return this
 }
 
+fun XMLStreamWriter.emptyElement(name: String): XMLStreamWriter {
+    this.writeEmptyElement(name)
+    return this
+}
+
 
 fun XMLStreamWriter.attribute(name: String, value: String) = writeAttribute(name, value)

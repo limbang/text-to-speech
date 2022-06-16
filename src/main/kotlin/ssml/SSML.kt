@@ -10,12 +10,15 @@ package top.limbang.ssml
 import top.limbang.neural.Region
 import top.limbang.utils.attribute
 import top.limbang.utils.element
+import top.limbang.utils.emptyElement
 import java.io.ByteArrayOutputStream
 import javax.xml.stream.XMLOutputFactory
 import javax.xml.stream.XMLStreamWriter
 
 /**
- * 创建一个文字转语音的 SSML 文本
+ * ## 创建一个文字转语音的 SSML 文本
+ *
+ * 可以参考 [通过语音合成标记语言 (SSML) 改善合成](https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp)
  *
  * @param version 指示用于解释文档标记的 SSML 规范的版本。 当前版本为 1.0。
  * @param lang 指定根文档的语言。 可以包含两个小写字母的语言代码，例如 en。 或者值也可以包含语言代码和大写的国家/地区，例如 en-US。
@@ -76,12 +79,19 @@ fun Speak.voice(name: String, text: String = "", action: (Voice.(String) -> Unit
  * @param role 指定讲话角色扮演。 语音充当不同的年龄和性别，但语音名称不会更改。
  * @param text 要转换成语音的内容
  */
-fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double = 1.0, role: Role = Role.Default, text: String = "", action: (Voice.() -> Unit)? = null) {
+fun Voice.adjustSpeakingStyles(
+    style: Style = Style.General,
+    styleDegree: Double = 1.0,
+    role: Role = Role.Default,
+    text: String = "",
+    action: (Voice.() -> Unit)? = null
+) {
     // 如果文本为空就不处理
-    if(text.isEmpty() && action == null) return
+    if (text.isEmpty() && action == null) return
     // 如果风格和角色都是默认的那么就去掉 mstts:express-as 节点，直接输入文本
     if (style == Style.General && role == Role.Default) {
         if (text.isNotEmpty()) speak.writer.writeCharacters(text)
+        if (action != null) action()
         return
     }
     // 设置说话风格和角色
@@ -89,7 +99,7 @@ fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double
         if (style != Style.General) attribute("style", style.value)
         if (style != Style.General) attribute("styledegree", if (styleDegree > 2 || styleDegree < 0.01) "1" else styleDegree.toString())
         if (role != Role.Default) attribute("role", role.name)
-        if (action != null ) action() else writeCharacters(text)
+        if (action != null) action() else writeCharacters(text)
     }
 }
 
@@ -100,10 +110,49 @@ fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double
  * @param pitch 音调  -50 到 50
  */
 fun Voice.prosody(rate: Int = 0, pitch: Int = 0, text: String) {
-    if(text.isEmpty()) return
+    if (text.isEmpty()) return
     speak.writer.element("prosody") {
         attribute("rate", "${if (rate < -100 || rate > 200) 0 else rate}%")
         attribute("pitch", "${if (pitch < -50 || pitch > 50) 0 else pitch}%")
         writeCharacters(text)
+    }
+}
+
+/**
+ * ## 添加或删除中断或暂停
+ * 可在单词之间插入停顿或中断。 还可使用它来防止文本转语音自动添加的暂停。
+ *
+ * @param strength 使用以下值之一指定暂停的相对持续时间：
+ * - None，或者不提供任何值 -> 0 毫秒
+ * - x-weak -> 250 毫秒
+ * - weak -> 500 毫秒
+ * - strong -> 750 毫秒  (默认值)
+ * - medium -> 1,000 毫秒
+ * - x-strong -> 1,250毫秒
+ * @param time 指定暂停的绝对持续时间，以秒或毫秒 (ms) 为单位。 应将此值设置为小于 5000 毫秒。 例如，2s 和 500ms 是有效值。
+ */
+fun Voice.`break`(strength: String = "strong", time: String = "") {
+    speak.writer.apply {
+        emptyElement("break")
+        if (time.isEmpty()) attribute("strength", strength)
+        else attribute("time", time)
+    }
+}
+
+/**
+ * ## 添加静音
+ * [silence] 和 [break] 之间的区别在于，[break] 可添加到文本中的任何位置。 静音仅适用于输入文本的开头或结尾，或者两个相邻句子的分界处。
+ *
+ * @param type 指定添加静音的位置：
+ * - Leading - 在文本的开头
+ * - Tailing - 在文本的结尾
+ * - Sentenceboundary - 在相邻句子之间
+ * @param value 指定暂停的绝对持续时间，以秒或毫秒为单位。 应将此值设置为小于 5000 毫秒。 例如，2s 和 500ms 是有效值。
+ */
+fun Voice.silence(type: String, value: String) {
+    speak.writer.apply {
+        emptyElement("mstts:silence")
+        attribute("type", type)
+        attribute("value", value)
     }
 }
