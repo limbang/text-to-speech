@@ -16,6 +16,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import top.limbang.neural.zh_cn.XiaochenNeural
 import top.limbang.ssml.Speak
+import top.limbang.ssml.adjustSpeakingStyles
+import top.limbang.ssml.prosody
 import top.limbang.ssml.voice
 import java.io.FileOutputStream
 import kotlin.test.Test
@@ -28,7 +30,12 @@ class TextToSpeechTest {
         val xiaoche = XiaochenNeural()
 
         val ssml = Speak {
-            voice(xiaoche.name, "你好！")
+            voice(xiaoche.name, "你好！"){
+                prosody(0,0,it)
+                adjustSpeakingStyles (text = it){
+                    prosody(text = it)
+                }
+            }
         }
 
         val logInterceptor = HttpLoggingInterceptor { message -> logger.debug(message) }

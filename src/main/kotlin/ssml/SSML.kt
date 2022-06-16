@@ -59,11 +59,11 @@ class Voice(val speak: Speak)
  * @param name 标识用于文本转语音输出的语音。
  * @param text 要转换成语音的内容
  */
-fun Speak.voice(name: String, text: String = "", action: (Voice.() -> Unit)? = null) {
+fun Speak.voice(name: String, text: String = "", action: (Voice.(String) -> Unit)? = null) {
     writer.element("voice") {
         attribute("name", name)
         if (text.isNotEmpty()) writeCharacters(text)
-        if (action != null) Voice(this@voice).action()
+        if (action != null) Voice(this@voice).action(text)
     }
 }
 
@@ -76,7 +76,9 @@ fun Speak.voice(name: String, text: String = "", action: (Voice.() -> Unit)? = n
  * @param role 指定讲话角色扮演。 语音充当不同的年龄和性别，但语音名称不会更改。
  * @param text 要转换成语音的内容
  */
-fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double = 1.0, role: Role = Role.Default, text: String = "") {
+fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double = 1.0, role: Role = Role.Default, text: String, action: (Voice.() -> Unit)? = null) {
+    // 如果文本为空就不处理
+    if(text.isEmpty()) return
     // 如果风格和角色都是默认的那么就去掉 mstts:express-as 节点，直接输入文本
     if (style == Style.General && role == Role.Default) {
         if (text.isNotEmpty()) speak.writer.writeCharacters(text)
@@ -87,6 +89,21 @@ fun Voice.adjustSpeakingStyles(style: Style = Style.General, styleDegree: Double
         if (style != Style.General) attribute("style", style.value)
         if (style != Style.General) attribute("styledegree", if (styleDegree > 2 || styleDegree < 0.01) "1" else styleDegree.toString())
         if (role != Role.Default) attribute("role", role.name)
-        if (text.isNotEmpty()) writeCharacters(text)
+        if (action != null ) action() else writeCharacters(text)
+    }
+}
+
+/**
+ * 语速和音调
+ *
+ * @param rate 语速 -100 到 200
+ * @param pitch 音调  -50 到 50
+ */
+fun Voice.prosody(rate: Int = 0, pitch: Int = 0, text: String) {
+    if(text.isEmpty()) return
+    speak.writer.element("prosody") {
+        attribute("rate", "${if (rate < -100 || rate > 200) 0 else rate}%")
+        attribute("pitch", "${if (pitch < -50 || pitch > 50) 0 else pitch}%")
+        writeCharacters(text)
     }
 }
