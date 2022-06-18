@@ -11,10 +11,12 @@ plugins {
     val version = "1.7.0"
     kotlin("jvm") version version
     kotlin("plugin.serialization") version version
+    `maven-publish`
+    signing
 }
 
 group = "top.limbang"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-alpha"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
@@ -37,4 +39,80 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "OSSRH"
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/limbang/text-to-speech")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifactId = "text-to-speech"
+            from(components["java"])
+            pom {
+                name.set("Text to speech")
+                packaging = "jar"
+                url.set("https://github.com/limbang/text-to-speech")
+                description.set("Text-to-speech based on Azure speech service")
+
+                scm {
+                    url.set("https://github.com/limbang/text-to-speech")
+                    connection.set("git@github.com:limbang/text-to-speech.git")
+                    developerConnection.set("https://github.com/limbang/text-to-speech.git")
+                }
+
+                licenses {
+                    license {
+                        name.set("GNU Affero General Public License v3.0")
+                        url.set("https://choosealicense.com/licenses/agpl-3.0/")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("limbang")
+                        name.set("limbang")
+                        email.set("495071565@qq.com")
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+signing {
+    val signingKeyId: String? by project
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    sign(publishing.publications["mavenJava"])
+}
+
+tasks.javadoc {
+    if (JavaVersion.current().isJava9Compatible) {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
+    }
 }
