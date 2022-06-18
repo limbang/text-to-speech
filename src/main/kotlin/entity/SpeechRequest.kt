@@ -5,15 +5,15 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.entity
+package top.limbang.tts.entity
 
-import top.limbang.entity.SpeechRequest.ContentType
-import top.limbang.entity.SpeechRequest.ContentType.JSON
-import top.limbang.entity.SpeechRequest.ContentType.SSML_XML
-import top.limbang.entity.SpeechRequest.Path
-import top.limbang.entity.SpeechRequest.Path.*
-import top.limbang.entity.SpeechRequest.Path.SpeechConfig
-import top.limbang.entity.SpeechRequest.Path.SynthesisContext
+import top.limbang.tts.entity.SpeechRequest.ContentType
+import top.limbang.tts.entity.SpeechRequest.ContentType.JSON
+import top.limbang.tts.entity.SpeechRequest.ContentType.SSML_XML
+import top.limbang.tts.entity.SpeechRequest.Path
+import top.limbang.tts.entity.SpeechRequest.Path.*
+import top.limbang.tts.entity.SpeechRequest.Path.SpeechConfig
+import top.limbang.tts.entity.SpeechRequest.Path.SynthesisContext
 import java.time.Instant
 
 /**

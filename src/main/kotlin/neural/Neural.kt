@@ -5,10 +5,10 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.neural
+package top.limbang.tts.neural
 
-import top.limbang.ssml.Role
-import top.limbang.ssml.Style
+import top.limbang.tts.ssml.Role
+import top.limbang.tts.ssml.Style
 
 /**
  * 预生成的神经语音接口

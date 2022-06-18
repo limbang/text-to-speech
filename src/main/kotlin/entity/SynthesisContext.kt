@@ -5,7 +5,7 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.entity
+package top.limbang.tts.entity
 
 import kotlinx.serialization.Serializable
 

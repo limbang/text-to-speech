@@ -5,7 +5,7 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang
+package top.limbang.tts
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -16,12 +16,11 @@ import okhttp3.*
 import okio.ByteString
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import top.limbang.entity.SpeechConfig
-import top.limbang.entity.SpeechRequest
-import top.limbang.entity.SpeechRequest.ContentType.JSON
-import top.limbang.entity.SpeechRequest.ContentType.SSML_XML
-import top.limbang.entity.SynthesisContext
-import top.limbang.ssml.Speak
+import top.limbang.tts.entity.SpeechConfig
+import top.limbang.tts.entity.SpeechRequest
+import top.limbang.tts.entity.SpeechRequest.ContentType.JSON
+import top.limbang.tts.entity.SpeechRequest.ContentType.SSML_XML
+import top.limbang.tts.entity.SynthesisContext
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -31,11 +30,11 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
     private val json = Json { encodeDefaults = true }
 
     /**
-     * 转换
+     * ## 文字转语音
      *
      * @param ssml ssml格式内容
      */
-    suspend fun convert(ssml: Speak): ByteArray = withContext(Dispatchers.IO) {
+    suspend fun convert(ssml: String): ByteArray = withContext(Dispatchers.IO) {
         val authorization = getAuthorization()
         val connectionId = createID()
         val url = "wss://eastus.tts.speech.microsoft.com/cognitiveservices/websocket/v1?Authorization=$authorization&X-ConnectionId=$connectionId"
@@ -102,7 +101,7 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
      * ## 创建ssml配置
      *
      */
-    private fun createSSML(connectionId: String, ssml: Speak) = SpeechRequest(SpeechRequest.Path.SSML, connectionId, SSML_XML, ssml.toString()).toString()
+    private fun createSSML(connectionId: String, ssml: String) = SpeechRequest(SpeechRequest.Path.SSML, connectionId, SSML_XML, ssml).toString()
 
     /**
      * ## 获取 authorization
@@ -121,4 +120,16 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
      */
     private fun createID() = UUID.randomUUID().toString().replace("-", "").uppercase()
 
+}
+
+object TTS {
+
+    private val tts by lazy { TextToSpeech() }
+
+    /**
+     * ## 文字转语音
+     *
+     * @param ssml ssml格式内容
+     */
+    suspend fun convert(ssml: String): ByteArray = tts.convert(ssml)
 }

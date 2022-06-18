@@ -5,10 +5,10 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.neural.zh_cn
+package top.limbang.tts.neural.zh_cn
 
-import top.limbang.neural.Gender
-import top.limbang.ssml.Style
+import top.limbang.tts.neural.Gender
+import top.limbang.tts.ssml.Style
 
 /**
  * ## 云扬

@@ -5,10 +5,10 @@
  * Use of this source code is governed by the GNU AGPLv3 license that can be found in the "LICENSE" file.
  */
 
-package top.limbang.neural.zh_hk
+package top.limbang.tts.neural.zh_hk
 
-import top.limbang.neural.Neural
-import top.limbang.neural.Region
+import top.limbang.tts.neural.Neural
+import top.limbang.tts.neural.Region
 
 /**
  * 繁体粤语
