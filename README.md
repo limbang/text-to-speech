@@ -1,13 +1,19 @@
 <div align="center">
 
-[![](https://img.shields.io/github/v/release/limbang/text-to-speech?include_prereleases)](https://github.com/limbang/mirai-console-rcon-plugin/releases)
-[![](https://img.shields.io/github/license/limbang/mirai-console-rcon-plugin)](https://github.com/limbang/mirai-console-rcon-plugin/blob/master/LICENSE)
+[![](https://img.shields.io/github/v/release/limbang/text-to-speech?include_prereleases)](https://github.com/limbang/text-to-speech/releases)
+[![](https://img.shields.io/github/license/limbang/text-to-speech)](https://github.com/limbang/text-to-speech/blob/master/LICENSE)
 
 
 本项目是基于 <a href = "https://azure.microsoft.com/zh-cn/services/cognitive-services/text-to-speech/">Azure 文本转语音服务 </a> 实现
 </div>
 
-# 使用方法: 参考[SSML语法](https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp)
+# 使用方法: 
+
+添加依赖:
+```kotlin
+implementation("top.limbang:text-to-speech:1.0.0-alpha")
+```
+编写 SSML 参考[SSML语法](https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp)
 ```kotlin
 val ssml = createSSML().speak{
     voice(XiaoxiaoNeural()) {
