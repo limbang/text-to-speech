@@ -22,4 +22,5 @@ class XiaoshuangNeural : MandarinSimplifiedNeural {
     override val name = "zh-CN-XiaoshuangNeural"
     override val localName = "晓双"
     override val gender = Gender.Female
+    override val styleList = listOf(Style.General, Style.Chat)
 }
