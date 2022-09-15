@@ -12,7 +12,7 @@
 添加依赖:
 ```kotlin
 dependencies {
-    implementation("top.limbang:text-to-speech:1.0.0")
+    implementation("top.limbang:text-to-speech:1.0.1")
 }
 ```
 编写 SSML 参考[SSML语法](https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp)
