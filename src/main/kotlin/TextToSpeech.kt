@@ -35,9 +35,8 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
      * @param ssml ssml格式内容
      */
     suspend fun convert(ssml: String): ByteArray = withContext(Dispatchers.IO) {
-        val authorization = getAuthorization()
         val connectionId = createID()
-        val url = "wss://eastus.tts.speech.microsoft.com/cognitiveservices/websocket/v1?Authorization=$authorization&X-ConnectionId=$connectionId"
+        val url = "wss://eastus.api.speech.microsoft.com/cognitiveservices/websocket/v1?TrafficType=AzureDemo&Authorization=bearer%20undefine&X-ConnectionId=$connectionId"
         val request = Request.Builder().url(url).build()
         var isClose = false
         val bos = ByteArrayOutputStream()
@@ -103,16 +102,6 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
      */
     private fun createSSML(connectionId: String, ssml: String) = SpeechRequest(SpeechRequest.Path.SSML, connectionId, SSML_XML, ssml).toString()
 
-    /**
-     * ## 获取 authorization
-     *
-     */
-    private fun getAuthorization() = try {
-        val request = Request.Builder().url("https://azure.microsoft.com/en-gb/services/cognitive-services/text-to-speech/").build()
-        """token: "(.*?)"""".toRegex().find(client.newCall(request).execute().body.string())!!.groupValues[1]
-    } catch (e: Exception) {
-        ""
-    }
 
     /**
      * ## 创建 id
