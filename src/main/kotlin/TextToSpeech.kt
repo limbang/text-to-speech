@@ -37,7 +37,11 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
     suspend fun convert(ssml: String): ByteArray = withContext(Dispatchers.IO) {
         val connectionId = createID()
         val url = "wss://eastus.api.speech.microsoft.com/cognitiveservices/websocket/v1?TrafficType=AzureDemo&Authorization=bearer%20undefine&X-ConnectionId=$connectionId"
-        val request = Request.Builder().url(url).build()
+
+        val request = Request.Builder()
+            .header("Origin","https://azure.microsoft.com")
+            .url(url)
+            .build()
         var isClose = false
         val bos = ByteArrayOutputStream()
         client.newWebSocket(request, object : WebSocketListener() {
@@ -47,6 +51,7 @@ class TextToSpeech(private val client: OkHttpClient = OkHttpClient.Builder().bui
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 logger.error(t.localizedMessage)
+                println(t)
                 isClose = true
             }
 
